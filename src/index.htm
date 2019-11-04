@@ -1,0 +1,40 @@
+<html lang="pt-br">
+<meta charset="utf-8">
+
+<head>
+   <title>netstat SNMP edition</title>
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ 
+   <link type="text/css" rel="Stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/redmond/jquery-ui.css" />
+ <!--  
+   <style>
+      p.posicaoBotao1 {
+         position: relative;
+         left: 75px;
+      }
+   </style>
+
+   <script type="text/javascript">
+      var checker = document.getElementById("protoTCP");
+      var sendbtn = document.getElementById("ipBotao");
+      checker.onchange = function() {
+            //sendbtn.disabled = !!this.checked;
+            sendbtn.enabled = !!this.checked;
+      };
+   </script>
+-->
+
+</head>
+   <body>
+      
+      <form action = "http://127.0.0.1:8081/process_get" method = "GET">
+         ip para consulta: <input type="text" id="ipConsulta" name="ipConsulta">
+         community: <input type="text" id="communityConsulta" name="communityConsulta">
+         <p><input type="checkbox" name="protoTCP" value="protoTCP" id="protoTCP"> TCP<br>
+         <input type="checkbox" name="protoUDP" value="protoUDP"> UDP<br></p>
+         <p class="posicaoBotao1"><button type="submit" name="ipBotao" value="ipB" id="ipBotao">Consultar</button></p>
+      </form>
+      
+   </body>
+</html>

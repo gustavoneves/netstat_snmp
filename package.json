@@ -1,0 +1,16 @@
+{
+  "name": "netstat_snmp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/gustavoneves/netstat_snmp.git",
+  "author": "gustavo neves <gustavo.neves@yandex.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "net-snmp": "^1.2.4",
+    "nodemon": "^1.19.4"
+  },
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  }
+}
