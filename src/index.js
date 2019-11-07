@@ -6,15 +6,12 @@ var snmp = require('net-snmp');
 app.use(express.static('public'));
 
 
-//app.get('/index.htm', function (req, res) {
 app.get('/', function (req, res) {
    res.sendFile( __dirname + "/" + "index.htm" );
 })
 
 app.get('/process_get', function (req, res) {
 
-    const oidsUDP = "1.3.6.1.2.1.7.5.1.2";
-    const oidsTCP = ["1.3.6.1.2.1.6.13.1.3", "1.3.6.1.2.1.6.13.1.5"]; //portas locais e remotas
     // Prepara a saida para JSON
     resposta = {
         ip:req.query.ipConsulta,
@@ -23,18 +20,69 @@ app.get('/process_get', function (req, res) {
         pUDP:req.query.protoUDP,
         community:req.query.communityConsulta
     };
+    // snmpwalk -v 1 -c read_only_community_string localhost
+    var snmpSessao = snmp.createSession(resposta.ip, resposta.community);
 
-    
+    function doneCbUDP (error) {
+        if (error){
+            console.error (error.toString ());
+        }
+        else{
+            //console.log("TESTE: " + teste);
+            return res.send("Portas udp abertas: " + teste);
+        }
+    }
+
+    function doneCbTCPcon (error) {
+        if (error){
+            console.error (error.toString ());
+        }
+        else{
+            //console.log("TESTE: " + teste);
+            return res.send("Portas tcp ConnState: " + teste);
+        }
+    }
+ 
     if(resposta.botao){
         if(resposta.pTCP && resposta.pUDP){
             return res.send("ip: " + resposta.ip + " " + "TCP" + " e " + "UDP");
         }
         else{
             if(resposta.pUDP){
-                return res.send("ip: " + resposta.ip + " " + "UDP");
+                var teste = "<br>";
+                var t = "";
+                const oidsUDP = "1.3.6.1.2.1.7.5.1.2";
+                snmpSessao.subtree(oidsUDP, function (varbinds) {
+                        for (var i = 0; i < varbinds.length; i++) {
+                            //console.log (varbinds[i].oid + "|" + varbinds[i].value);
+                            t = varbinds[i].value;
+                       }
+                       teste = teste.concat(t + "<br>");
+                }, doneCbUDP);
             }
             else{
-                return res.send("ip: " + resposta.ip + " " + "TCP");
+                var teste = "<br>";
+                var t = "";
+                var oidTCPConn = "1.3.6.1.2.1.6.13.1.1";
+                snmpSessao.subtree(oidTCPConn, function (varbinds) {
+                        for (var i = 0; i < varbinds.length; i++) {
+                            //console.log (varbinds[i].oid + "|" + varbinds[i].value);
+                            //t = varbinds[i].value;
+                            if(varbinds[i].value === 5){ // 5 e' established
+                                t = (varbinds[i].oid);
+                                t = t.substring(oidTCPConn.length + 1); // + 1 devido ao ponto
+                                var n = 1;
+                                t = t.replace(/\./g, v => n++ == 5 ? " " : v); // remove o quinto ponto
+                                n=1;
+                                t = t.replace(/\./g, v => n++ == 4 ? ":" : v); // troca o quarto ponto
+                                n=1;
+                                t = t.replace(/\./g, v => n++ == 7 ? ":" : v); // troca o setimo ponto
+                            }
+                       }
+                       teste = teste.concat(t + "<br>");
+                }, doneCbTCPcon);
+
+                //return res.send("ip: " + resposta.ip + " " + "TCP");
             }
         }     
     }
@@ -50,71 +98,3 @@ var servidor = app.listen(8081, function () {
    console.log("Servidor ouvindo em http://%s:%s", endHost, portaHost)
 
 })
-
-
-
-
-
-    
-   // Prepara a saida para JSON
-   /*
-   resposta = {
-        dia:req.query.iData,
-        idProto:req.query.idProto,
-        idASN:req.query.idASN,
-        idPaises:req.query.idPaises
-   };
-   */
-   //console.log(resposta);
-	//
-   //console.log(req.query);
-   /*
-   if(resposta.idProto){
-      var caminho = resposta.dia + "/protocolos";
-   } else if (resposta.idASN){
-      var caminho = resposta.dia + "/ASNs";
-   }
-   else{
-      var caminho = resposta.dia + "/paises";
-   }
-   */
-   //console.log(caminho);
-   //res.redirect(caminho);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//const express = require('express');
-
-//const app = express();
-/*
-//intecepto a rota que passou a raiz
-app.get('/', (req, res) => { //req representa a requisicao; res representa a resposta
-    return res.send('Hello World');
-});
-*/
-/*
-app.get('/', (req, res) => { //req representa a requisicao; res representa a resposta
-    return res.send(`Hello ${req.query.name}`);
-});
-*/
-//app.listen(3333);
