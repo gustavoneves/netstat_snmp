@@ -3,8 +3,6 @@ var app = express();
 
 var snmp = require('net-snmp');
 
-var h = "";
-
 app.use(express.static('public'));
 
 
@@ -127,7 +125,6 @@ app.get('/process_get', function (req, res) {
                                 t = (varbinds[i].oid);
                                 t = t.substring(oidTCPConn.length + 1); // + 1 devido ao ponto
                                 t = "<tr><td>" + t;
-                                console.log(t);
                                 
                                 var n = 1;
                                 t = t.replace(/\./g, v => n++ == 5 ? "</td><td>" : v); // remove o quinto ponto
