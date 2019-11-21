@@ -6,12 +6,7 @@
   "author": "gustavo neves <gustavo.neves@yandex.com>",
   "license": "MIT",
   "dependencies": {
-    "bettersnmpjs": "^1.0.0",
     "express": "^4.17.1",
-    "net-snmp": "^1.2.4",
-    "nodemon": "^1.19.4"
-  },
-  "scripts": {
-    "dev": "nodemon src/index.js"
+    "net-snmp": "^1.2.4"
   }
 }

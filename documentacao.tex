@@ -1,0 +1,105 @@
+\documentclass[10pt]{article}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+
+\title{Guia de funcionamento\\netstat\_snmp}
+    
+\author{Aluno: \textbf{Gustavo José Neves da Silva}}
+
+
+\begin{document}
+    
+    \date{}
+    
+    \maketitle
+    
+    \newpage
+    \tableofcontents 
+    \newpage
+    
+    
+\section{Requisitos} \label{requisitos}
+Nesta seção, são apresentados os requisitos mínimos para a utilização do presente software.
+	\subsection{requisitos:cliente}
+		\begin{table}[h]
+  			\centering
+   			\begin{tabular}{| c | c |}     
+      			\hline
+      			\textbf{Browser} & \textbf{Versão} \\ \hline \hline
+      			Chrome & 51 \\ \hline
+	  			Firefox & 54 \\ \hline
+	  			Edge & 14 \\ \hline
+	  			Safari & 10 \\ \hline
+	  			Opera & 38 \\ \hline
+    		\end{tabular}
+    		\caption{Versão mínima do browser}
+    		\label{tabela:Browser}
+		\end{table}
+		
+	\subsection{Servidor} \label{requisitos:servidor}
+		\begin{table}[h]
+   			\centering
+   			\begin{tabular}{| c | c |}     
+      			\hline
+      			\textbf{Package} & \textbf{Versão} \\ \hline \hline
+      			express & 4.17.1 \\ \hline
+	  			net-snmp & 1.2.4 \\ \hline
+    		\end{tabular}
+    		\caption{Versão mínima dos packages}
+    		\label{tabela:Packages}
+		\end{table}
+		
+		\begin{table}[h]
+   			\centering
+   			\begin{tabular}{| c | c |}     
+      			\hline
+      			\textbf{Interpretador} & \textbf{Versão} \\ \hline \hline
+      			Node.js & 12.13.0 \\ \hline
+    		\end{tabular}
+    		\caption{Versão mínima do interpretador}
+    		\label{tabela:Node}
+		\end{table}
+		
+\section{Utilização}
+	\subsection{Cenários de uso} \label{cenario}
+%\section{Cenários de uso} \label{cenario}
+		O presente software oferece suporte a todos os sistemas operacionais, seja no cliente ou no servidor, desde que sejam atendidos os requisitos apresentados na Seção~\ref{requisitos}.
+	
+	\subsection{Cliente} \label{utilizacao:cliente}
+	
+	A Figura~\ref{fig:telaCliente}, ilustra a visão que o cliente possui do software. Para realizar um busca devem ser realizados os seguintes passos:
+	
+%	\begin{itemize}
+%		\item Inserir o ip do host que se deseja consultar~(Figura~\ref{fig:telaCliente}, item 1)
+%		\item Inserir a community~(Figura~\ref{fig:telaCliente}, item 2)
+%		\item Selecionar o(s) protocolo(s)~(Figura~\ref{fig:telaCliente}, item(s) 3 e/ou 4)
+%		\item Clicar no botão Consultar~(Figura~\ref{fig:telaCliente}, item 5)
+%	\end{itemize}
+	\begin{itemize}
+		\item Inserir o endereço ip do servidor seguido de ":8081"\footnote{A porta de recebimento do servidor pode ser alterada no arquivo fonte.}~(Figura~\ref{fig:telaCliente}, item 1)
+		\item Inserir o endereço ip do host que se deseja consultar~(Figura~\ref{fig:telaCliente}, item 2)
+		\item Inserir a community~(Figura~\ref{fig:telaCliente}, item 3)
+		\item Selecionar o(s) protocolo(s)~(Figura~\ref{fig:telaCliente}, item(s) 4 e/ou 5)
+		\item Clicar no botão Consultar~(Figura~\ref{fig:telaCliente}, item 6)
+	\end{itemize}
+	
+	\begin{figure}[htbp]
+%    \centerline{\includegraphics[width=0.8\textwidth]{imagens/telaCliente.png}}
+%	\centerline{\includegraphics[width=\textwidth]{imagens/telaCliente.png}}
+	\centerline{\includegraphics[width=1.5\textwidth]{imagens/tela2.png}}
+    \caption{Tela principal do cliente}
+    \label{fig:telaCliente}
+   	\end{figure}
+	
+	\subsection{Servidor} \label{utilizacao:servidor}
+	A Figura~\ref{fig:telaCliente}, ilustra a visão do servidor do software. Para iniciar o servidor é necessário realizar apenas o sequinte passo: \verb+node diretorioDeTrabalho/index.js+, como ilustrado pela Figura~(Figura~\ref{fig:telaServidor}, item 1).
+	
+	\begin{figure}[htbp]
+	\centerline{\includegraphics[width=1.5\textwidth]{imagens/telaServidor.png}}
+    \caption{Tela principal do servidor}
+    \label{fig:telaServidor}
+   	\end{figure}
+
+\end{document}
